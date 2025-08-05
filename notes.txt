@@ -1,0 +1,41 @@
+db entry:
+Company             fetch
+Role                fetch
+Status              create
+Job Posting url     fetch
+Languages           fetch
+Date applied        create
+Date updated        create
+Location            fetch
+Industry            fetch/infer
+Interview Notes     create
+
+* jobsMap to maintain entry mapping to record in the db.
+
+__________________________________________________________
+|             Job Application Tracker                    |
+|                                                        |
+|______      ___________________________________         |
+|Filters|    |           TABLE               |S|         |
+|       |    |                               |C|         |
+|       |    |                               |R|         |
+|       |    |                               |O|         |
+|       |    |                               |L|         |
+|______      |                               |L|         |
+|            |                               |B|         |
+|            |                               |A|         |
+|            |                               |R|         |
+|            |                               | |  |ADD|  |
+|            |                               | | |UPDATE||
+|            ___________________________________ |DELETE||
+|                                                        |
+__________________________________________________________
+
+
+* Fix:
+    link
+    Form layout
+    interNotes
+    sorting
+        chrome extension: add, clear, local storage for persistence until add
+        greyout fields

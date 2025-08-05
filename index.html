@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Job Application Tracker</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body class="bg-gray-100 text-gray-800 p-6 overflow-hidden">
+    <h1 class="text-3xl font-bold mb-6 text-center">Job Application Tracker</h1>
+
+    <!-- Sticky Filters -->
+    <!-- <div class="sticky-filters">
+      <h2 class="font-semibold mb-2">Filters</h2>
+      Add your filter controls here
+      <input
+        type="text"
+        placeholder="Company..."
+        class="border rounded px-2 py-1 w-full mb-2"
+      />
+      <input
+        type="text"
+        placeholder="Location..."
+        class="border rounded px-2 py-1 w-full"
+      />
+    </div> -->
+
+    <div class="table-wrapper">
+      <!-- Scrollable Table -->
+      <div
+        class="table-container bg-white rounded-lg shadow-md border border-gray-300"
+      >
+        <table class="min-w-full text-sm text-left table-fixed">
+          <thead
+            id="tableHead"
+            class="bg-gray-200 font-semibold sticky top-0 z-10"
+          >
+            <tr>
+              <th class="border px-4 py-3">
+                <input type="checkbox" id="select-all" />
+              </th>
+              <th class="border px-4 py-3">S/N</th>
+              <th id="companyCol" class="border px-4 py-3">Company</th>
+              <th id="roleCol" class="border px-4 py-3">Role</th>
+              <th id="statusCol" class="border px-4 py-3">Status</th>
+              <th class="border px-4 py-3">Job URL</th>
+              <th id="dateAppliedCol" class="border px-4 py-3">Date Applied</th>
+              <th id="scheduledAtCol" class="border px-4 py-3">Scheduled At</th>
+              <th id="locationCol" class="border px-4 py-3">Location</th>
+              <th id="industryCol" class="border px-4 py-3">Industry</th>
+              <th id="dateUpdatedCol" class="border px-4 py-3">Date Updated</th>
+              <th class="border border-gray-300 px-4 py-3">Interview Notes</th>
+            </tr>
+          </thead>
+          <tbody id="jobTable" class="divide-y divide-gray-100">
+            <!-- <tr class="hover:bg-gray-50">
+              <td><input type="checkbox" class="row-checkbox" /></td>
+              <td class="px-4 py-3">Amazon</td>
+              <td class="px-4 py-3">Software Engineer</td>
+              <td class="px-4 py-3">Applied</td>
+              <td class="px-4 py-3">
+                <a
+                  href="job.url"
+                  class="text-blue-500 underline"
+                  target="_blank"
+                  >Link</a
+                >
+              </td>
+              <td class="px-4 py-3">2025-07-27</td>
+              <td class="px-4 py-3">${scheduledAt}</td>
+              <td class="px-4 py-3">New York City</td>
+              <td class="px-4 py-3">Tech</td>
+              <td class="px-4 py-3">2025-07-31</td>
+              <td class="px-4 py-3"></td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Interview Notes Modal -->
+    <div id="notesModal" class="notes-modal hidden">
+      <div class="notes-modal-content" id="notesModalContent">
+        <span class="notes-close" id="notesModalClose">&times;</span>
+        <div id="notesText" class="notes-scroll"></div>
+      </div>
+    </div>
+
+    <!-- Modal Backdrop -->
+    <div
+      id="jobModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <!-- Modal Container -->
+      <div
+        class="bg-white w-full max-w-4xl rounded-lg shadow-lg p-8 relative max-h-[80vh] overflow-y-auto"
+      >
+        <h2 class="text-2xl font-semibold mb-6">Job Entry</h2>
+
+        <!-- Form Fields -->
+        <form id="jobForm">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-medium mb-1" for="company"
+                >*Company:</label
+              >
+              <input
+                type="text"
+                id="company"
+                name="company"
+                class="w-full border rounded px-3 py-2"
+              />
+            </div>
+
+            <div>
+              <label class="block font-medium mb-1" for="status"
+                >*Status:</label
+              >
+              <select
+                id="status"
+                name="status"
+                class="w-full border rounded px-3 py-2"
+              >
+                <option value="Applied📄">Applied📄</option>
+                <option value="Interviewing👨‍💼">Interviewing👨‍💼</option>
+                <option value="Negotiating💵">Negotiating💵</option>
+                <option value="Rejected❌">Rejected❌</option>
+                <option value="Denied👎">Denied👎</option>
+                <option value="Accepted✅">Accepted✅</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-medium mb-1" for="role">*Role:</label>
+              <input
+                type="text"
+                id="role"
+                name="role"
+                class="w-full border rounded px-3 py-2"
+              />
+            </div>
+
+            <div>
+              <label class="block font-medium mb-1" for="url"
+                >*Job Posting URL:</label
+              >
+              <input
+                type="url"
+                id="url"
+                name="url"
+                class="w-full border rounded px-3 py-2"
+              />
+            </div>
+
+            <div>
+              <label class="block font-medium mb-1" for="scheduledAt"
+                >Scheduled At:</label
+              >
+              <input
+                type="date"
+                id="scheduledAt"
+                name="scheduledAt"
+                class="w-full border rounded px-3 py-2"
+              />
+            </div>
+
+            <div>
+              <label class="block font-medium mb-1" for="dateApplied"
+                >Date Applied:</label
+              >
+              <input
+                type="date"
+                id="dateApplied"
+                name="dateApplied"
+                class="w-full border rounded px-3 py-2"
+              />
+            </div>
+
+            <!-- <div>
+              <label class="block font-medium mb-1" for="dateUpdated"
+                >Date Updated:</label
+              >
+              <input
+                type="date"
+                id="dateUpdated"
+                name="dateUpdated"
+                class="w-full border rounded px-3 py-2"
+              />
+            </div> -->
+            <div>
+              <label class="block font-medium mb-1" for="location"
+                >Location:</label
+              >
+              <select
+                id="location"
+                name="location"
+                class="w-full border rounded px-3 py-2"
+              >
+                <option value="NYC">NYC</option>
+                <option value="Remote">Remote</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-medium mb-1" for="industry"
+                >Industry:</label
+              >
+              <input
+                type="text"
+                id="industry"
+                name="industry"
+                class="w-full border rounded px-3 py-2"
+              />
+            </div>
+            <div class="md:col-span-2">
+              <label class="block font-medium mb-1" for="notes"
+                >Interview Notes:</label
+              >
+              <textarea
+                id="notes"
+                name="notes"
+                rows="3"
+                class="w-full border rounded px-3 py-2"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex justify-end space-x-4 mt-6">
+            <button
+              type="button"
+              id="btn_add--job_entry"
+              class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded hidden"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              id="btn_update--job_entry"
+              class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded hidden"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              id="btn_cancel--job_entry"
+              class="bg-gray-400 hover:bg-gray-500 text-white font-semibold px-4 py-2 rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Sticky Buttons -->
+    <div class="sticky-buttons">
+      <button
+        id="btn_add"
+        class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-md shadow"
+      >
+        Add
+      </button>
+      <button
+        id="btn_update"
+        class="btn_update bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-2 rounded-md shadow"
+      >
+        Update
+      </button>
+      <button
+        id="btn_del"
+        class="btn_del bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2 rounded-md shadow"
+      >
+        Delete
+      </button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

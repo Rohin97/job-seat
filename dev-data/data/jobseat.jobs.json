@@ -1,0 +1,58 @@
+[
+  {
+    "company": "Amazon",
+    "role": "Software Engineer",
+    "status": "Applied📄",
+    "jobUrl": "link",
+    "location": "NYC",
+    "dateApplied": "2025-07-31T07:22:43.575Z"
+  },
+  {
+    "company": "OpenAI",
+    "role": "Software Engineer",
+    "status": "Interviewing👨‍💼",
+    "jobUrl": "link",
+    "location": "NYC",
+    "dateApplied": "2025-07-30T07:22:43.575Z",
+    "interviewNotes": "Heard back from recruiter. Waiting for screen."
+  },
+  {
+    "company": "Stripe",
+    "role": "Software Engineer",
+    "status": "Negotiating💵",
+    "jobUrl": "link",
+    "dateApplied": "2025-07-29T04:15:49.451Z",
+    "location": "Remote",
+    "industry": "Not specified",
+    "interviewNotes": "Round 1 complete."
+  },
+  {
+    "company": "Company1",
+    "role": "Software Engineer",
+    "status": "Rejected❌",
+    "jobUrl": "Link",
+    "dateApplied": "2025-07-30T00:00:00.000Z",
+    "dateUpdated": "2025-07-30T19:57:40.882Z",
+    "location": "NYC",
+    "industry": "Not specified"
+  },
+  {
+    "company": "Company2",
+    "role": "Software Engineer",
+    "status": "Denied👎",
+    "jobUrl": "Link",
+    "dateApplied": "2025-07-31T00:00:00.000Z",
+    "location": "NYC",
+    "industry": "Tech"
+  },
+  {
+    "company": "Google",
+    "role": "Software Engineer",
+    "status": "Accepted✅",
+    "jobUrl": "Link",
+    "dateApplied": "2025-07-31T04:20:48.596Z",
+    "location": "NYC",
+    "industry": "Not specified",
+    "interviewNotes": "2 rounds completed. Waiting for final."
+  }
+]
