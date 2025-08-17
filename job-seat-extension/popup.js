@@ -64,7 +64,7 @@ btnClear.addEventListener("click", clear);
 function clear() {
   chrome.storage.local.clear();
   companyJobEntry.value = roleJobEntry.value = urlJobEntry.value = "";
-  statusJobEntry.value = "Applied";
+  statusJobEntry.value = "Applied📄";
   locationJobEntry.value = "NYC";
   industryJobEntry.value = "Not Specified";
 }

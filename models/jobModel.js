@@ -23,14 +23,14 @@ const jobSchema = new mongoose.Schema(
     },
     dateApplied: {
       type: Date,
-      default: Date.now()
+      default: Date.now
     },
     scheduledAt: {
       type: Date
     },
     dateUpdated: {
       type: Date,
-      default: Date.now()
+      default: Date.now
     },
     location: {
       type: String,

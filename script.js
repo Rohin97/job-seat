@@ -140,18 +140,25 @@ btnUpdate.addEventListener("click", async function(e) {
   }
 });
 
-btnDelete.addEventListener("click", function(e) {
+btnDelete.addEventListener("click", async function(e) {
   e.preventDefault();
   try {
     if (selectedJobs.size === 0) {
       throw new Error("Please select the job(s) you want to delete.");
     }
     const jobs = { ids: [...selectedJobs] };
-    confirm(
-      `Confirming to delete ${selectedJobs.size} job(s). Press OK to proceed.`
-    )
-      ? deleteJobs(jobs)
-      : alert("Delete job canceled.");
+    if (
+      confirm(
+        `Confirming to delete ${selectedJobs.size} job(s). Press OK to proceed.`
+      )
+    ) {
+      const success = await deleteJobs(jobs);
+      if (success) {
+        prevSortById = "";
+      }
+    } else {
+      alert("Delete job canceled.");
+    }
   } catch (err) {
     alert(err.message);
     console.error(err);
@@ -181,7 +188,10 @@ async function addJobEntryModal(e) {
     industry: industryJobEntry.value,
     interviewNotes: notesJobEntry.value
   };
-  await addJob(jobEntry);
+  const success = await addJob(jobEntry);
+  if (success) {
+    prevSortById = "";
+  }
 }
 
 async function updateJobEntryModal(e) {
@@ -194,7 +204,10 @@ async function updateJobEntryModal(e) {
       industryJobEntry.value === "" ? "Not specified" : industryJobEntry.value,
     interviewNotes: notesJobEntry.value
   };
-  await updateJob(jobEntry);
+  const success = await updateJob(jobEntry);
+  if (success) {
+    prevSortById = "";
+  }
 }
 
 function closeJobEntryModal() {
@@ -274,6 +287,7 @@ async function fetchJobs(api = API_URL) {
       const prevSortEl = document.getElementById(prevSortById);
       let prevLabel = prevSortEl.innerHTML;
       prevSortEl.innerHTML = prevLabel.substring(0, prevLabel.length - 1);
+      sortBy = "";
     }
     jobTable.replaceChildren();
     selectedJobs.clear();
@@ -291,7 +305,7 @@ async function fetchJobs(api = API_URL) {
         <td class="px-4 py-3">${job.role}</td>
         <td class="px-4 py-3">${job.status}</td>
         <td class="px-4 py-3"><a href="${
-          job.url
+          job.jobUrl
         }" class="text-blue-500 underline" target="_blank">Link</a></td>
         <td class="px-4 py-3">${formatDate(job.dateApplied)}</td>
         <td class="px-4 py-3">${
@@ -342,9 +356,11 @@ async function addJob(job) {
     }
     closeJobEntryModal();
     await fetchJobs();
+    return true;
   } catch (err) {
     alert(err);
     console.error(err.message);
+    return false;
   }
 }
 
@@ -361,9 +377,11 @@ async function updateJob(job) {
     }
     closeJobEntryModal();
     await fetchJobs();
+    return true;
   } catch (err) {
     alert(err);
     console.error(err.message);
+    return false;
   }
 }
 
@@ -381,9 +399,11 @@ async function deleteJobs(jobs) {
     selectAllCheckbox.checked = false;
     await fetchJobs();
     alert(`${data.data.jobsDeleted} job(s) deleted successfully.😁`);
+    return true;
   } catch (err) {
     alert(err);
     console.error(err.message);
+    return false;
   }
 }
 
